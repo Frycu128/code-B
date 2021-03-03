@@ -77,3 +77,5 @@ if x>y:
     print('Wygrałeś! Liczba wygranych rund =',x)
 if y>x:
     print('Przegałeś.. Liczba wygranych rund =',x)
+else:
+    print('Remis!')
