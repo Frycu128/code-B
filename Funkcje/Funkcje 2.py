@@ -100,3 +100,111 @@ print(f"Niestety nie trafiłeś.. Ukrytą liczbą była liczba: {hidden_nb}")
 #6▹ Napisz grę kamień-papier-nożyce tak, aby korzystać z funkcji.
 # -------------- Znajduje się w pliku K-N-P_game -----------------
 
+#7
+def is_visa(card_number):
+    if card_number[0] == '4' and len(card_number) in [13, 16]:
+        return True
+    else:
+        return False
+
+def is_mastercard(card_number):
+    # numbers 51 through 55 or with the numbers 2221 through 2720. All have 16 digits.
+    if (51 <= int(card_number[0:2]) <= 55 or 2221 <= int(card_number[0:4]) <= 2720) and len(card_number) == 16:
+        return True
+    else:
+        return False
+
+def is_american_express(card_number):
+    if card_number[0:2] in ['34', '37'] and len(card_number) == 15:
+        return True
+    else:
+        return False
+
+
+card_nb = "0"
+
+while len(card_nb) < 13 or len(card_nb) == 14 or len(card_nb) > 16  or not card_nb.isnumeric():
+    print("Numer karty musi mieć 13, 15 albo 16 cyfr. Musi też być pisany ciągiem i zawierać same cyfry!")
+    card_nb = input('Podaj nr. karty: ')
+
+
+if is_visa(card_nb):
+        print(f'Karta o numerze: {card_nb} to Visa Card')
+elif is_mastercard(card_nb):
+        print(f'Karta o numerze: {card_nb} to MasterCard')
+elif is_american_express(card_nb):
+        print(f'Karta o numerze: {card_nb} to American Express')
+else:
+        print(f'Karta o numerze: {card_nb} nie jest Visa Card, MasterCard ani American Express...')
+
+
+# 8 + 9
+
+
+def is_old(year_production):
+    if 2021 - year_production >= 25:
+        return True
+    else:
+        return False
+
+
+def is_oryginal(org_precent):
+    if org_precent >= 75:
+        return True
+    else:
+        return False
+
+
+car_info = {}.fromkeys(['Marka', 'Model', 'Rocznik', "czy_orgyginalny"])
+
+print(car_info)
+
+car_info['Marka'] = input("Podaj markę samochodu: ")
+car_info['Model'] = input("Podaj model samochodu: ")
+car_info['Rocznik'] = int(input("Podaj rocznik samochodu: "))
+car_info['czy_oryginalny'] = int(input("Podaj jaki jest stosunek oryginalnych części do nieoryginalnych w procentach: "))
+
+if is_old(car_info['Rocznik']) and is_oryginal(car_info['czy_oryginalny']):
+    print(f'Gratulacje! Twój samochód', car_info['Marka'], 'może być zarejestrowany jako zabytek.')
+elif is_old(car_info['Rocznik']) and not is_oryginal(car_info['czy_oryginalny']):
+    print(f'Twój samochód', car_info['Marka'], 'ma za mało oryginalnych części.')
+elif is_oryginal(car_info['czy_oryginalny']) and not is_old(car_info['Rocznik']):
+    print(f'Twój samochód', car_info['Marka'], 'jest za młody na rejestrację.')
+else:
+    print(f'Twój samochód', car_info['Marka'], 'jest jeszcze zbyt młody na rejestrację jako zabytek i ma za mało org. części.')
+
+#10
+import random
+
+
+def random_word():
+    list_of_words = ['dom', 'mieszkanie', 'centrum', 'ulica', 'latarnia']
+    word_random = random.choice(list_of_words)
+    return word_random
+
+
+hidden_word = random_word()
+print(hidden_word)
+word_indication = ['-'] * len(hidden_word)
+print(word_indication)
+
+for game_round in range(1, 11):
+    hidden_word_list = list(hidden_word)
+    word_letter = input(f'Runda {game_round}! Podaj literę: ').lower()
+    print(word_letter)
+    while word_letter.isdigit() or not len(word_letter) == 1:
+        word_letter = input(f'{word_letter} nie jest pojedynczą literą! Podaj literę: ').lower()
+    if hidden_word.count(word_letter) >= 1:
+        print(f'Litera {word_letter} występuje w ukrytym wyrazie {hidden_word.count(word_letter)} razy.')
+        for i in hidden_word_list:
+            if i == word_letter:
+                word_indication[hidden_word_list.index(word_letter)] = word_letter
+                hidden_word_list[hidden_word_list.index(word_letter)] = 0
+        print(''.join(word_indication))
+    else:
+        print(f'Litera {word_letter} nie występuje w ukrytym wyrazie.')
+    if word_indication.count('-') == 0:
+        print(f'Zwycięstwo! Odkryłeś ukryte słowo: {hidden_word}')
+        exit()
+print(f'Przegrana! Ukrytym słowem było: {hidden_word}')
+
