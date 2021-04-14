@@ -1,17 +1,14 @@
-
-
-def calendar_print(days):
-    for nb in days:
-        if nb == 0:
-            continue
-        print(f'{nb:02d}', end=' ')
-        if nb % 7 == 0:
+def print_calendar(month_data):
+    print(f'{month_data[0]}')
+    for n in month_data[1]:
+        print(f'{n:02d}', end=' ')
+        if (n+1) % 7 == 0:
             print()
     print('\n')
     return
 
 
-data = [
+year_data = [
     ('January', range(31)),
     ('February', range(28)),
     ('March', range(31)),
@@ -25,8 +22,6 @@ data = [
     ('November', range(30)),
     ('December', range(31)),
       ]
-data_dict = dict(data)
 
-for month in data_dict.items():
-    print(month[0])
-    calendar_print(month[1])
+for m in year_data:
+    print_calendar(m)
